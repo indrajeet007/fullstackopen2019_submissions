@@ -7,3 +7,7 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# npm generated files #
+#######################
+node_modules/
