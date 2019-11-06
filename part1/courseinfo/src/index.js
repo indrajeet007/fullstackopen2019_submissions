@@ -11,18 +11,17 @@ const Header = (props) => {
 }
 
 // Part component
-const Part = (props) => {
-    console.log(props)
+const Part = ({ parts, exercises }) => {
     return (
         <div>
-           <p>{props.parts} {props.exercises}</p>
+           <p>{parts} {exercises}</p>
         </div>
     )
 }
 
 // Content component
 const Content = (props) => {
-    console.log(props.parts)
+    console.log(props)
     return (
         <div>
            <Part parts={props.parts.name} exercises={props.parts.exercises} />
@@ -68,7 +67,7 @@ const App = () => {
 
             <Content parts={course.parts[0]} />
 
-            <Total parts={course.parts[0].exercises} />
+            <Total parts={course.parts[0]} />
         </div>
     )
 }
