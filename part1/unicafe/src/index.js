@@ -4,7 +4,20 @@ import ReactDOM from 'react-dom'
 // Stateless components
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
-const Statistics = ({ title, value, sign }) => <div>{title} {value} {sign}</div>
+const Statistics = ({ title, value, sign }) => {
+    return (
+        <div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td style={{verticalAlign: 'middle', height: 10, width: 50}}>{title}</td>
+                        <td style={{'paddingLeft': '10px'}}>{value} {sign}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    )
+}
 
 const App = () => {
     // save clicks of each button to own state
