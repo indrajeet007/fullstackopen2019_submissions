@@ -17,6 +17,7 @@ const App = (props) => {
       "5": 0,
     }
   )
+  const [highestVote, setHighestVote] = useState(0)
 
   // calculate random anecdote index value
   const calRandomAnec = (props) => {
@@ -29,26 +30,41 @@ const App = (props) => {
   // calculate votes for displayed anecdotes
   const calAnecVotes = () => {
     const copyVotes = votes;
-    let selectedString = selected.toString();
-    // console.log("selected", copyVotes[selectedString])
 
+    // extracting selected state value as a string
+    const selectedString = selected.toString();
+
+    // increase the value for corresponding key in copyVotes
     copyVotes[selectedString] = votes[selectedString] + 1;
     
     setVote({
       ...copyVotes
     })
 
-    // console.log('Selected: ', selected)
-    console.log('Votes', votes)
+    // calling function to calculate the highest voted anecdote
+    highestVotedAnec()
+  }
+
+  // calculate highest voted anecdote and render
+  const highestVotedAnec = () => {
+    let obj = { ...votes }
+    let highestVoteIndex = Object.keys(obj).reduce((a, b) => obj[a] > obj[b] ? a : b)
+
+    setHighestVote(highestVoteIndex)
   }
 
   return (
     <div>
+        <h1>Anecdote of the day</h1>
         {selected === 0 ? (<div>{props.anecdotes[selected]}</div>) : <div>{props.anecdotes[selected]}</div>}
         <span>has {votes[selected]} votes</span>
         <br />
         <Button onClick={() => calAnecVotes()} text='votes'/>
         <Button onClick={() => calRandomAnec(props)} text='next anecdote'/>
+        <br />
+        <h1>Anecdote with most votes</h1>
+        {highestVote === 0 ? (<div>{props.anecdotes[highestVote]}</div>) : <div>{props.anecdotes[highestVote]}</div>}
+        <span>has {votes[highestVote]} votes</span>
     </div>
   )
 }
