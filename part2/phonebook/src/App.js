@@ -13,14 +13,17 @@ const App = () => {
 
   const rows = () => persons.map(person => <Person key={person.name} person={person}/>)
 
-  console.log(persons.map(person => console.log(person)))
-
   const addName = (event) => {
     event.preventDefault()
-    console.log(event)
 
     const nameObject = {
         name: newName
+    }
+
+    if(persons.some(el => el.name === newName)) {
+      return (
+        window.alert(`${newName} is already added to phonebook`)
+      )
     }
 
     setPersons(persons.concat(nameObject))
