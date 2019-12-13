@@ -28,6 +28,10 @@ const App = () => {
     // console.log(filteredName)
 
     if(filteredName === event.target.value.toString()) {
+      if(filteredName === '') {
+        return setShowAll(true)
+      }
+
       return setShowAll(false)
     }
     setShowAll(true)
