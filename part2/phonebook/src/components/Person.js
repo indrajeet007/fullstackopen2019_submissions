@@ -1,10 +1,11 @@
 import React from 'react'
 
 const Person = ({ person }) => {
+    
     return (
-        <li>
+        <p>
             {person.name} {person.number}
-        </li>
+        </p>
     )
 }
 
