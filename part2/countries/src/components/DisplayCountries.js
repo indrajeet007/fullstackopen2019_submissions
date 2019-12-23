@@ -5,20 +5,28 @@ import CountryDetails from './CountryDetails'
 const DisplayCountries = ({ countries, filteredCountryLength }) => {
     // console.log('Display props: ', countries)
 
-    const displayList = () => countries.map(country => {
+    const _displayList = () => countries.map(country => {
+        console.log('displayList props: ', country)
+        
         if(filteredCountryLength === 1) {
             return (
-                <CountryDetails key={country.name} country={country}/>
+                <div>
+                    <CountryDetails key={country.name} country={country}/>
+                </div>
             )
         }
-        return (
-            <Country key={country.name} country={country}/>
-        )
+        else {
+            return (
+                <div>
+                    <Country key={country.name} country={country}/>
+                </div>
+            )
+        }
     })
     
     return (
         <div>
-            {displayList()}
+            {_displayList()}
         </div>
     )
 }

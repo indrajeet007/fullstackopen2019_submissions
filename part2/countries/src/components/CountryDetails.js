@@ -1,8 +1,21 @@
 import React from 'react'
 
 const CountryDetails = ({ country }) => {
+    console.log('CountryDetails props: ', country)
 
-const languages = () => country.languages.map(language => <li key={language.name}>{language.name}</li>)
+    const _languages = () => country.languages.map(language => {
+        console.log('Languages props: ', language)
+
+        return (
+            <div>
+                <ul key={language.name}>
+                    <li>
+                        {language.name}
+                    </li>
+                </ul>
+            </div>
+        )
+    })
     
     return (
         <div>
@@ -11,9 +24,7 @@ const languages = () => country.languages.map(language => <li key={language.name
             <p>population {country.population}</p>
             <br />
             <h3>languages</h3>
-            <ul>
-                {languages()}
-            </ul>
+            {_languages()}
             <img src={country.flag} alt="" height="200" width="300"/>
         </div>
     )
