@@ -10,9 +10,9 @@ const Country = ({ country }) => {
 
     return (
         <div>
-            { buttonClicked ? <ul key={country.name}><li>{country.name}</li></ul> : <CountryDetails key={country.name} country={country}/> }
+            { buttonClicked ? country.name : <CountryDetails key={country.name} country={country}/> }
             
-            <Button onClick={() => setButtonClicked(!buttonClicked)} text='show'/>
+            <Button onClick={() => setButtonClicked(!buttonClicked)} text={ buttonClicked ? "show" : "close" }/>
         </div>
     )
 }
