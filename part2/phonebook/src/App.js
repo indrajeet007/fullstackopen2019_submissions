@@ -6,7 +6,6 @@ import personService from './services/persons'
 
 const App = () => {
   const [ persons, setPersons ] = useState([])
-  
   const [ showAll, setShowAll ] = useState(true)
   const [ filteredNameInput, setFilteredNameInput ]  = useState('')
 
@@ -20,7 +19,7 @@ const App = () => {
   
   const _pushToArr = (value) => {
     personService
-      .create(value)
+      .createPerson(value)
       .then(returnedPerson => {
         setPersons(persons.concat(returnedPerson))
       })
@@ -51,7 +50,10 @@ const App = () => {
       setShowAll(true)
     }
   }
-  // console.log('showAll after _filterAsInput call ends: ', showAll)
+  
+  const _refreshAfterDelete = newList => {
+    setPersons(newList)
+  }
 
   return (
     <div style={{ 'marginLeft':'10px' }}>
@@ -61,7 +63,7 @@ const App = () => {
       <PersonForm persons={persons} handleClick={_pushToArr}/>
       <h3>Numbers</h3>
       {
-        showAll ? (<Persons persons={persons}/>) : ( <Persons persons={filteredNameInput}/>)
+        showAll ? (<Persons persons={persons} handleRefresh={_refreshAfterDelete}/>) : ( <Persons persons={filteredNameInput} handleRefresh={_refreshAfterDelete}/>)
       }
     </div>
   )
