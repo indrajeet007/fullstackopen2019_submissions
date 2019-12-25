@@ -8,27 +8,55 @@ const App = () => {
   const [ persons, setPersons ] = useState([])
   const [ showAll, setShowAll ] = useState(true)
   const [ filteredNameInput, setFilteredNameInput ]  = useState('')
-
+  
   useEffect(() => {
     personService
-      .getAll()
-      .then(initialPersons => {
-        setPersons(initialPersons)
-      })
+    .getAll()
+    .then(initialPersons => {
+      setPersons(initialPersons)
+    })
   }, [])
   
-  const _pushToArr = (value) => {
-    personService
-      .createPerson(value)
+  const _pushToArr = (nameObject) => {
+    console.log('_pushToArr value: ', nameObject)
+    const final_object = persons.find(p => {
+      if(p.name === nameObject.name)
+      {
+        return p
+      }
+      return 0
+    });
+    if(final_object === undefined)
+    {
+      personService
+      .createPerson(nameObject)
       .then(returnedPerson => {
         setPersons(persons.concat(returnedPerson))
+    })
+    }
+    else 
+    {
+      const person = persons.find(person => person.name === nameObject.name)
+
+      console.log(person)
+
+      personService
+      .updatePerson(final_object.id, nameObject)
+      .then(changedPerson => {
+        console.log(changedPerson)
+        setPersons(persons.map(person => person.name !== nameObject.name ? person : changedPerson))
       })
+      .catch(error => {
+        alert(
+          `error updating number to the server`
+      )
+      }
+    )
+    }
   }
 
   const _filterAsInput = ({ event, filteredName }) => {
-
     if(event.target.value === filteredName) {
-
       if(event.target.value === '') {
         return setShowAll(showAll)
       }
@@ -41,9 +69,8 @@ const App = () => {
         }
         return null
       })
-      
+    
       setFilteredNameInput(displayFilterWise)
-      
       return showAll ? persons :  displayFilterWise
     }
     else {

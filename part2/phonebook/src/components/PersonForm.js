@@ -21,18 +21,30 @@ const PersonForm = ({ persons, handleClick }) => {
         }
     
         if(persons.some(el => el.name === newName)) {
-          return (
-            window.alert(`${newName} is already added to phonebook`)
-          )
+            let message = `${newName} is already added to phonebook, replace the old number with a new one?`
+            
+            const result = window.confirm(message)
+
+            if(result === true) {
+                console.log('in here at addPersons')
+                handleClick(nameObject)
+                setNewName('')
+                setNewNumber('')
+            }
+            else {
+                return 0
+            }
+        }
+        else {
+            handleClick(nameObject)
         }
         
-        handleClick(nameObject)
+
         // setPersons(persons.push(nameObject))
         // persons.push(nameObject)
 
 
-        setNewName('')
-        setNewNumber('')
+        
         // console.log('Form persons: ', persons)
 
         return persons
