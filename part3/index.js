@@ -22,7 +22,7 @@ let persons = [
       "number": "39-23-6423122",
       "id": 4
     }
-  ]
+]
 
 app.get('/info', (request, response) => {
     const datetime = new Date()
@@ -46,6 +46,13 @@ app.get('/api/persons/:id', (request, response) => {
     else {
         response.status(404).end()
     }
+})
+
+app.delete('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    persons = persons.filter(person => person.id !== id)
+
+    response.status(204).end()
 })
 
 const PORT = 3001
